@@ -1,3 +1,27 @@
 #root {
   color: red;
 }
+.grid {
+  display: flex;
+  margin: 20px 10px 20px 10px;
+  flex-flow: row wrap;
+ 
+  align-content: space-between;
+  justify-content: space-between;
+}
+.myEpisode {
+  font-size: medium;
+}
+.mySummary {
+  color: blue;
+}
+
+h3 {
+  color: green;
+}
+.myCard {
+width: 23%;
+text-align: justify;
+margin-top: 40px;
+margin-left: 10px;
+}
