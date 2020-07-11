@@ -13,7 +13,7 @@
   font-size: medium;
 }
 .mySummary {
-  color: blue;
+  color: black;
 }
 
 h3 {
@@ -24,4 +24,11 @@ width: 23%;
 text-align: justify;
 margin-top: 40px;
 margin-left: 10px;
+border: 4px;
+border-color: red;
+  
+}
+article{
+  background-color: burlywood;
+  
 }

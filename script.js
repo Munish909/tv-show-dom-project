@@ -1,13 +1,56 @@
 //You can edit ALL of the code here
+let searchBox;
+let allEpisodes;
 function setup() {
-  const allEpisodes = getAllEpisodes();
-  makePageForEpisodes(allEpisodes);
+  //allEpisodes = getAllEpisodes();
+  //makePageForEpisodes(allEpisodes);
+
+searchBox = document.querySelector("#searchInput");
+searchBox.addEventListener("keyup", searchEpisodes);
+
 }
 
+function searchEpisodes(){
+ // let searchBox = document.querySelector("#searchInput");
+  console.log(searchBox.value);
+  //let allEpisodes = getAllEpisodes();
+  let filteredEpisodes = allEpisodes.filter(episode =>
+    episodeMatchesQuery(episode, searchBox.value));
+
+    makePageForEpisodes(filteredEpisodes);
+    console.log(filteredEpisodes.length);
+}
+
+function episodeMatchesQuery(ep, searchWord){
+  if(ep.name.toLowerCase().includes(searchWord.toLowerCase()) || ep.summary.toLowerCase().includes(searchWord.toLowerCase())){
+
+  return true;
+}else{
+  return false;
+}
+}
+
+fetch("https://api.tvmaze.com/shows/82/episodes")
+  .then(function(result){
+ return result.json();
+ 
+})
+.then(function(episodesAll){
+  console.log(episodesAll);
+  allEpisodes = episodesAll;
+  makePageForEpisodes(allEpisodes);
+});
+
+
 function makePageForEpisodes(episodeList) {
+  console.log("makePageForEpisodes" + episodeList.length )
   const rootElem = document.getElementById("root");
-  rootElem.className = "grid";
+  rootElem.textContent = "";
   //rootElem.textContent = `Got ${episodeList.length} episode(s)`;
+
+  let episodeDiv = document.createElement("div");
+  episodeDiv.className = "mygrid";
+  rootElem.appendChild(episodeDiv);
   
   for (i = 0; i < episodeList.length; i++) {
     console.log(episodeList[i].name, episodeList[i].image.medium, episodeList[i].summary);
@@ -41,6 +84,7 @@ function makePageForEpisodes(episodeList) {
    card.appendChild(para);
 
    let apiLink = document.createElement("a");
+   //let api = apiLink "target=_blank";
    apiLink.innerText = episodeList[i]._links.self.href;
    card.appendChild(apiLink);
   
